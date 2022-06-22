@@ -1,38 +1,39 @@
 class TTT {
-    private char[][] box;
-    public static char[] color = {'x', 'o'};
-    private int zeroOrOne;
+    private char[][] tokens;
+    public static char[] COLOR = {'x', 'o'};
+    private int turn;
 
-    private Start s;
-    private Put p;
-    private Move m;
+    private Start start;
+    private Put put;
+    private Move move;
 
     public TTT() {
-        zeroOrOne = 0;
-        box = new char[3][3];
-        s = new Start(box);
-        p = new Put(box);
+        turn = 0;
+        tokens = new char[3][3];
+        start = new Start(tokens);
+        put = new Put(tokens);
+        move = new Move(tokens);
     }
 
     public void exec() {
         do {
-            s.write();
+            start.write();
             if (!this.complete()) {
-                p.put(zeroOrOne, this);
+                put.put(turn, this);
             } else {
-                m.move(zeroOrOne, this);
+                move.move(turn, this);
             }
-            zeroOrOne = (zeroOrOne + 1) % 2;
+            turn = (turn + 1) % 2;
         } while (!this.existTTT());
-        s.write();
-        this.message(zeroOrOne);
+        start.write();
+        this.message(turn);
     }
 
     public boolean complete() {
         int c = 0;
-        for (int contRow = 0; contRow < 3; contRow++) {
-            for (int contColumn = 0; contColumn < 3; contColumn++) {
-                if (box[contRow][contColumn] != '_') {
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                if (tokens[i][j] != '_') {
                     c++;
                 }
             }
@@ -45,36 +46,36 @@ class TTT {
     }
 
     public boolean existTTT(char token) {
-        if (box[1][1] == token) {
-            if (box[0][0] == token) {
-                return box[2][2] == token;
+        if (tokens[1][1] == token) {
+            if (tokens[0][0] == token) {
+                return tokens[2][2] == token;
             }
-            if (box[0][2] == token) {
-                return box[2][0] == token;
+            if (tokens[0][2] == token) {
+                return tokens[2][0] == token;
             }
-            if (box[0][1] == token) {
-                return box[2][1] == token;
+            if (tokens[0][1] == token) {
+                return tokens[2][1] == token;
             }
-            if (box[1][0] == token) {
-                return box[1][2] == token;
-            }
-            return false;
-        }
-        if (box[0][0] == token) {
-            if (box[0][1] == token) {
-                return box[0][2] == token;
-            }
-            if (box[1][0] == token) {
-                return box[2][0] == token;
+            if (tokens[1][0] == token) {
+                return tokens[1][2] == token;
             }
             return false;
         }
-        if (box[2][2] == token) {
-            if (box[1][2] == token) {
-                return box[0][2] == token;
+        if (tokens[0][0] == token) {
+            if (tokens[0][1] == token) {
+                return tokens[0][2] == token;
             }
-            if (box[2][1] == token) {
-                return box[2][0] == token;
+            if (tokens[1][0] == token) {
+                return tokens[2][0] == token;
+            }
+            return false;
+        }
+        if (tokens[2][2] == token) {
+            if (tokens[1][2] == token) {
+                return tokens[0][2] == token;
+            }
+            if (tokens[2][1] == token) {
+                return tokens[2][0] == token;
             }
             return false;
         }
@@ -82,24 +83,24 @@ class TTT {
     }
 
     public boolean empty(int r, int c) {
-        return box[r][c] == '_';
+        return tokens[r][c] == '_';
     }
 
     public boolean full(int r, int c, char t) {
-        return box[r][c] == t;
+        return tokens[r][c] == t;
     }
 
     public void clear() {
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
-                box[i][j] = '_';
+                tokens[i][j] = '_';
             }
         }
     }
 
     public void message(int turn) {
         turn = (turn + 1) % 2;
-        System.out.println("Victoria!!!! " + TTT.color[turn] + "! " + TTT.color[turn] + "! " + TTT.color[turn] + "! Victoria!!!!");
+        System.out.println("Victoria!!!! " + TTT.COLOR[turn] + "! " + TTT.COLOR[turn] + "! " + TTT.COLOR[turn] + "! Victoria!!!!");
     }
 
     public static void main(String[] args) {

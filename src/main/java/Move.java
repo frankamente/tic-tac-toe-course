@@ -13,7 +13,7 @@ class Move {
     }
 
     public void move(int turn, TTT ticTacToe) {
-        System.out.println("Mueve el jugador " + TTT.color[turn]);
+        System.out.println("Mueve el jugador " + TTT.COLOR[turn]);
         int originRow = 0;
         int originColumn = 0;
         int targetRow = 0;
@@ -47,7 +47,7 @@ class Move {
                     }
                 } while (!ok);
             } while (1 <= originColumn && originColumn <= 3);
-            ok = ticTacToe.full(originRow - 1, originColumn - 1, TTT.color[turn]);
+            ok = ticTacToe.full(originRow - 1, originColumn - 1, TTT.COLOR[turn]);
             if (!ok) {
                 System.out.println("Esa casilla no está ocupada por ninguna de tus fichas");
             }
@@ -86,7 +86,7 @@ class Move {
             }
         } while (!ok);
         tokens[originRow - 1][originColumn - 1] = '_';
-        tokens[targetRow - 1][targetColumn - 1] = TTT.color[turn];
+        tokens[targetRow - 1][targetColumn - 1] = TTT.COLOR[turn];
     }
 
 }
