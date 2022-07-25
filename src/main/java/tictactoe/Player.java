@@ -14,7 +14,7 @@ public class Player {
 
     public void put(Board board) {
         IO io = new IO();
-        io.writeln("Pone el jugador " + color);
+        io.writeln("Pone el jugador " + color.getColor());
         int row;
         int column;
         boolean ok;
@@ -36,7 +36,7 @@ public class Player {
 
     public void move(Board board) {
         IO io = new IO();
-        io.writeln("Mueve el jugador " + color);
+        io.writeln("Mueve el jugador " + color.getColor());
         int originRow;
         int originColumn;
         int targetRow;
@@ -74,6 +74,6 @@ public class Player {
 
     public void win() {
         IO io = new IO();
-        io.writeln("Victoria!!!! Gana el jugador" + color);
+        io.writeln("Victoria!!!! Gana el jugador: " + color.getColor());
     }
 }

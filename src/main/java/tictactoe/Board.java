@@ -20,7 +20,7 @@ public class Board {
         IO io = new IO();
         for (int i = 0; i < Board.DIMENSION; i++) {
             for (int j = 0; j < Board.DIMENSION; j++) {
-                io.write(colors[i][j] + " ");
+                io.write(colors[i][j].getColor() + " ");
             }
             io.writeln();
         }
