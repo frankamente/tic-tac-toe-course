@@ -31,21 +31,28 @@ public class Player {
             }
         } while (!ok);
         board.remove(origin);
-        this.put(board, "A");
+        this.put(board, "A", origin);
     }
 
     private void put(Board board, String title) {
+        this.put(board, title, null);
+    }
+
+    private void put(Board board, String title, Coordinate forbiddenCoordinate) {
         IO io = new IO();
-        Coordinate coordinate = new Coordinate();
+        Coordinate target = new Coordinate();
         boolean ok;
         do {
-            coordinate.read(title);
-            ok = board.empty(coordinate);
+            target.read(title);
+            ok = board.empty(target);
             if (!ok) {
                 io.writeln("Esa casilla no está vacía");
             }
+            if (ok && target.equals(forbiddenCoordinate)) {
+                io.writeln("No se puede poner en el mismo lugar en el que estaba");
+            }
         } while (!ok);
-        board.put(coordinate, color);
+        board.put(target, color);
     }
 
     public void win() {
