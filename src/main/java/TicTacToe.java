@@ -1,15 +1,9 @@
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-
-class TTT {
+class TicTacToe {
     private char[][] tokens;
     public static char[] COLOR = {'x', 'o'};
     private int turn;
 
-    private BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(
-            System.in));
-
-    public TTT() {
+    public TicTacToe() {
         turn = 0;
         tokens = new char[3][3];
     }
@@ -38,30 +32,31 @@ class TTT {
     }
 
     private void write() {
+        IO io = new IO();
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
-                System.out.print(tokens[i][j] + " ");
+                io.write(tokens[i][j] + " ");
             }
-            System.out.println();
+            io.writeln();
         }
     }
 
-    private void put(int turn, TTT ticTacToe) {
-        System.out.println("Pone el jugador " + TTT.COLOR[turn]);
+    private void put(int turn, TicTacToe ticTacToe) {
+        IO io = new IO();
+        io.writeln("Pone el jugador " + TicTacToe.COLOR[turn]);
         int row = 0;
         int column = 0;
         boolean ok;
         do {
-            System.out.println("En qué casilla?");
+            io.writeln("En qué casilla?");
             do {
                 ok = false;
                 do {
                     try {
-                        System.out.println("Fila? [1,3]: ");
-                        row = Integer.parseInt(bufferedReader.readLine());
+                        row = io.readInt("Fila? [1,3]: ");
                         ok = true;
                     } catch (Exception ex) {
-                        System.out.println("ERROR DE FORMATO! "
+                        io.writeln("ERROR DE FORMATO! "
                                 + "Introduzca un valor con formato entero.");
                     }
                 } while (!ok);
@@ -70,41 +65,40 @@ class TTT {
                 ok = false;
                 do {
                     try {
-                        System.out.println("Columna? [1,3]: ");
-                        column = Integer.parseInt(bufferedReader.readLine());
+                        column = io.readInt("Columna? [1,3]: ");
                         ok = true;
                     } catch (Exception ex) {
-                        System.out.println("ERROR DE FORMATO! "
+                        io.writeln("ERROR DE FORMATO! "
                                 + "Introduzca un valor con formato entero.");
                     }
                 } while (!ok);
             } while (column < 1 || 3 < column);
             ok = ticTacToe.empty(row - 1, column - 1);
             if (!ok) {
-                System.out.println("Esa casilla no está vacía");
+                io.writeln("Esa casilla no está vacía");
             }
         } while (!ok);
-        tokens[row - 1][column - 1] = TTT.COLOR[turn];
+        tokens[row - 1][column - 1] = TicTacToe.COLOR[turn];
     }
 
-    private void move(int turn, TTT ticTacToe) {
-        System.out.println("Mueve el jugador " + TTT.COLOR[turn]);
+    private void move(int turn, TicTacToe ticTacToe) {
+        IO io = new IO();
+        io.writeln("Mueve el jugador " + TicTacToe.COLOR[turn]);
         int originRow = 0;
         int originColumn = 0;
         int targetRow = 0;
         int targetColumn = 0;
         boolean ok;
         do {
-            System.out.println("De qué casilla?");
+            io.writeln("De qué casilla?");
             do {
                 ok = false;
                 do {
                     try {
-                        System.out.println("Fila? [1,3]: ");
-                        originRow = Integer.parseInt(bufferedReader.readLine());
+                        originRow = io.readInt("Fila? [1,3]: ");
                         ok = true;
                     } catch (Exception ex) {
-                        System.out.println("ERROR DE FORMATO! "
+                        io.writeln("ERROR DE FORMATO! "
                                 + "Introduzca un valor con formato entero.");
                     }
                 } while (!ok);
@@ -113,31 +107,29 @@ class TTT {
                 ok = false;
                 do {
                     try {
-                        System.out.println("Columna? [1,3]: ");
-                        originColumn = Integer.parseInt(bufferedReader.readLine());
+                        originColumn = io.readInt("Columna? [1,3]: ");
                         ok = true;
                     } catch (Exception ex) {
-                        System.out.println("ERROR DE FORMATO! "
+                        io.writeln("ERROR DE FORMATO! "
                                 + "Introduzca un valor con formato entero.");
                     }
                 } while (!ok);
             } while (1 <= originColumn && originColumn <= 3);
-            ok = ticTacToe.full(originRow - 1, originColumn - 1, TTT.COLOR[turn]);
+            ok = ticTacToe.full(originRow - 1, originColumn - 1, TicTacToe.COLOR[turn]);
             if (!ok) {
-                System.out.println("Esa casilla no está ocupada por ninguna de tus fichas");
+                io.writeln("Esa casilla no está ocupada por ninguna de tus fichas");
             }
         } while (!ok);
         do {
-            System.out.println("A qué casilla?");
+            io.writeln("A qué casilla?");
             do {
                 ok = false;
                 do {
                     try {
-                        System.out.println("Fila? [1,3]: ");
-                        targetRow = Integer.parseInt(bufferedReader.readLine());
+                        targetRow = io.readInt("Fila? [1,3]: ");
                         ok = true;
                     } catch (Exception ex) {
-                        System.out.println("ERROR DE FORMATO! "
+                        io.writeln("ERROR DE FORMATO! "
                                 + "Introduzca un valor con formato entero.");
                     }
                 } while (!ok);
@@ -146,22 +138,21 @@ class TTT {
                 ok = false;
                 do {
                     try {
-                        System.out.println("Columna? [1,3]: ");
-                        targetColumn = Integer.parseInt(bufferedReader.readLine());
+                        targetColumn = io.readInt("Columna? [1,3]: ");
                         ok = true;
                     } catch (Exception ex) {
-                        System.out.println("ERROR DE FORMATO! "
+                        io.writeln("ERROR DE FORMATO! "
                                 + "Introduzca un valor con formato entero.");
                     }
                 } while (!ok);
             } while (targetColumn < 1 || 3 < targetColumn);
             ok = ticTacToe.empty(targetRow - 1, targetColumn - 1);
             if (!ok) {
-                System.out.println("Esa casilla no está vacía");
+                io.writeln("Esa casilla no está vacía");
             }
         } while (!ok);
         tokens[originRow - 1][originColumn - 1] = '_';
-        tokens[targetRow - 1][targetColumn - 1] = TTT.COLOR[turn];
+        tokens[targetRow - 1][targetColumn - 1] = TicTacToe.COLOR[turn];
     }
 
     public boolean complete() {
@@ -225,20 +216,13 @@ class TTT {
         return tokens[r][c] == t;
     }
 
-    public void clear() {
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
-                tokens[i][j] = '_';
-            }
-        }
-    }
-
     public void message(int turn) {
+        IO io = new IO();
         turn = (turn + 1) % 2;
-        System.out.println("Victoria!!!! " + TTT.COLOR[turn] + "! " + TTT.COLOR[turn] + "! " + TTT.COLOR[turn] + "! Victoria!!!!");
+        io.writeln("Victoria!!!! " + TicTacToe.COLOR[turn] + "! " + TicTacToe.COLOR[turn] + "! " + TicTacToe.COLOR[turn] + "! Victoria!!!!");
     }
 
     public static void main(String[] args) {
-        new TTT().exec();
+        new TicTacToe().exec();
     }
 }
