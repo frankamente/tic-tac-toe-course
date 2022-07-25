@@ -42,8 +42,12 @@ public class Board {
         colors[row][column] = color;
     }
 
-    public boolean empty(int row, int token) {
-        return colors[row][token] == Color.NONE;
+    public void remove(int row, int column) {
+        this.put(row, column, Color.NONE);
+    }
+
+    public boolean empty(int row, int column) {
+        return this.full(row, column, Color.NONE);
     }
 
     public boolean full(int row, int column, Color color) {
@@ -90,5 +94,4 @@ public class Board {
         }
         return false;
     }
-
 }

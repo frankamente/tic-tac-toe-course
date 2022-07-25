@@ -68,7 +68,7 @@ public class Player {
                 io.writeln("Esa casilla no está vacía");
             }
         } while (!ok);
-        board.put(originRow - 1, originColumn - 1, Color.NONE);
+        board.remove(originRow - 1, originColumn - 1);
         board.put(targetRow - 1, targetColumn - 1, color);
     }
 
