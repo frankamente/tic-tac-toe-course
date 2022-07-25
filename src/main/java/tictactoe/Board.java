@@ -2,19 +2,19 @@ package tictactoe;
 
 public class Board {
 
-    private final Token[][] tokens;
+    private final char[][] tokens;
     public static char[] COLOR = {'x', 'o'};
 
     public Board() {
 
-        this.tokens = new Token[3][3];
+        this.tokens = new char[3][3];
         this.start();
     }
 
     public void start() {
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
-                tokens[i][j] = new Token('_');
+                tokens[i][j] = '_';
             }
         }
     }
@@ -23,7 +23,7 @@ public class Board {
         IO io = new IO();
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
-                io.write(tokens[i][j].getValue() + " ");
+                io.write(tokens[i][j] + " ");
             }
             io.writeln();
         }
@@ -33,7 +33,7 @@ public class Board {
         int c = 0;
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
-                if (!tokens[i][j].equals(new Token('_'))) {
+                if (tokens[i][j] != '_') {
                     c++;
                 }
             }
@@ -41,53 +41,53 @@ public class Board {
         return c == 6;
     }
 
-    public void put(int row, int column, Token token) {
+    public void put(int row, int column, char token) {
         tokens[row][column] = token;
     }
 
-    public boolean empty(int r, int c) {
-        return tokens[r][c].equals(new Token('_'));
+    public boolean empty(int row, int token) {
+        return tokens[row][token] == '_';
     }
 
-    public boolean full(int row, int column, Token token) {
-        return tokens[row][column].equals(token);
+    public boolean full(int row, int column, char token) {
+        return tokens[row][column] == token;
     }
 
     public boolean existTTT() {
-        return this.existTTT(new Token('x')) || this.existTTT(new Token('o'));
+        return this.existTTT('x') || this.existTTT('o');
     }
 
-    private boolean existTTT(Token token) {
-        if (tokens[1][1].equals(token)) {
-            if (tokens[0][0].equals(token)) {
-                return tokens[2][2].equals(token);
+    private boolean existTTT(char token) {
+        if (tokens[1][1] == token) {
+            if (tokens[0][0] == token) {
+                return tokens[2][2] == token;
             }
-            if (tokens[0][2].equals(token)) {
-                return tokens[2][0].equals(token);
+            if (tokens[0][2] == token) {
+                return tokens[2][0] == token;
             }
-            if (tokens[0][1].equals(token)) {
-                return tokens[2][1].equals(token);
+            if (tokens[0][1] == token) {
+                return tokens[2][1] == token;
             }
-            if (tokens[1][0].equals(token)) {
-                return tokens[1][2].equals(token);
-            }
-            return false;
-        }
-        if (tokens[0][0].equals(token)) {
-            if (tokens[0][1].equals(token)) {
-                return tokens[0][2].equals(token);
-            }
-            if (tokens[1][0].equals(token)) {
-                return tokens[2][0].equals(token);
+            if (tokens[1][0] == token) {
+                return tokens[1][2] == token;
             }
             return false;
         }
-        if (tokens[2][2].equals(token)) {
-            if (tokens[1][2].equals(token)) {
-                return tokens[0][2].equals(token);
+        if (tokens[0][0] == token) {
+            if (tokens[0][1] == token) {
+                return tokens[0][2] == token;
             }
-            if (tokens[2][1].equals(token)) {
-                return tokens[2][0].equals(token);
+            if (tokens[1][0] == token) {
+                return tokens[2][0] == token;
+            }
+            return false;
+        }
+        if (tokens[2][2] == token) {
+            if (tokens[1][2] == token) {
+                return tokens[0][2] == token;
+            }
+            if (tokens[2][1] == token) {
+                return tokens[2][0] == token;
             }
             return false;
         }

@@ -2,16 +2,15 @@ package tictactoe;
 
 public class Player {
 
-
-    private final Token token;
+    private final char token;
 
     public Player(int i) {
-        token = new Token(Board.COLOR[i]);
+        token = Board.COLOR[i];
     }
 
     public void put(Board board) {
         IO io = new IO();
-        io.writeln("Pone el jugador " + token.getValue());
+        io.writeln("Pone el jugador " + token);
         int row;
         int column;
         boolean ok;
@@ -33,7 +32,7 @@ public class Player {
 
     public void move(Board board) {
         IO io = new IO();
-        io.writeln("Mueve el jugador " + token.getValue());
+        io.writeln("Mueve el jugador " + token);
         int originRow;
         int originColumn;
         int targetRow;
@@ -65,12 +64,12 @@ public class Player {
                 io.writeln("Esa casilla no está vacía");
             }
         } while (!ok);
-        board.put(originRow - 1, originColumn - 1, new Token('_'));
+        board.put(originRow - 1, originColumn - 1, '_');
         board.put(targetRow - 1, targetColumn - 1, token);
     }
 
     public void win() {
         IO io = new IO();
-        io.writeln("Victoria!!!! Gana el jugador" + token.getValue());
+        io.writeln("Victoria!!!! Gana el jugador" + token);
     }
 }
