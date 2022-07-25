@@ -1,11 +1,11 @@
 public class Board {
 
-    private final char[][] tokens;
+    private final Token[][] tokens;
     public static char[] COLOR = {'x', 'o'};
 
     public Board() {
 
-        this.tokens = new char[3][3];
+        this.tokens = new Token[3][3];
         this.start();
     }
 
@@ -13,7 +13,7 @@ public class Board {
         IO io = new IO();
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
-                io.write(tokens[i][j] + " ");
+                io.write(tokens[i][j].getValue() + " ");
             }
             io.writeln();
         }
@@ -23,7 +23,7 @@ public class Board {
         int c = 0;
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
-                if (tokens[i][j] != '_') {
+                if (tokens[i][j].equals(new Token('_'))) {
                     c++;
                 }
             }
@@ -34,7 +34,7 @@ public class Board {
     public void start() {
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
-                tokens[i][j] = '_';
+                tokens[i][j] = new Token('_');
             }
         }
     }
@@ -58,7 +58,7 @@ public class Board {
                 io.writeln("Esa casilla no está vacía");
             }
         } while (!ok);
-        tokens[row - 1][column - 1] = Board.COLOR[turn];
+        tokens[row - 1][column - 1] = new Token(Board.COLOR[turn]);
     }
 
     public void move(int turn) {
@@ -77,7 +77,7 @@ public class Board {
             do {
                 originColumn = io.readInt("Columna? [1,3]: ");
             } while (1 <= originColumn && originColumn <= 3);
-            ok = this.full(originRow - 1, originColumn - 1, Board.COLOR[turn]);
+            ok = this.full(originRow - 1, originColumn - 1, new Token(Board.COLOR[turn]));
             if (!ok) {
                 io.writeln("Esa casilla no está ocupada por ninguna de tus fichas");
             }
@@ -95,57 +95,63 @@ public class Board {
                 io.writeln("Esa casilla no está vacía");
             }
         } while (!ok);
-        tokens[originRow - 1][originColumn - 1] = '_';
-        tokens[targetRow - 1][targetColumn - 1] = Board.COLOR[turn];
+        tokens[originRow - 1][originColumn - 1] = new Token('_');
+        tokens[targetRow - 1][targetColumn - 1] = new Token(Board.COLOR[turn]);
     }
 
     private boolean empty(int r, int c) {
-        return tokens[r][c] == '_';
+        return tokens[r][c].equals(new Token('_'));
     }
 
-    private boolean full(int r, int c, char t) {
-        return tokens[r][c] == t;
+    private boolean full(int row, int column, Token token) {
+        return tokens[row][column].equals(token);
     }
 
     public boolean existTTT() {
-        return this.existTTT('x') || this.existTTT('o');
+        return this.existTTT(new Token('x')) || this.existTTT(new Token('o'));
     }
 
-    private boolean existTTT(char token) {
-        if (tokens[1][1] == token) {
-            if (tokens[0][0] == token) {
-                return tokens[2][2] == token;
+    private boolean existTTT(Token token) {
+        if (tokens[1][1].equals(token)) {
+            if (tokens[0][0].equals(token)) {
+                return tokens[2][2].equals(token);
             }
-            if (tokens[0][2] == token) {
-                return tokens[2][0] == token;
+            if (tokens[0][2].equals(token)) {
+                return tokens[2][0].equals(token);
             }
-            if (tokens[0][1] == token) {
-                return tokens[2][1] == token;
+            if (tokens[0][1].equals(token)) {
+                return tokens[2][1].equals(token);
             }
-            if (tokens[1][0] == token) {
-                return tokens[1][2] == token;
-            }
-            return false;
-        }
-        if (tokens[0][0] == token) {
-            if (tokens[0][1] == token) {
-                return tokens[0][2] == token;
-            }
-            if (tokens[1][0] == token) {
-                return tokens[2][0] == token;
+            if (tokens[1][0].equals(token)) {
+                return tokens[1][2].equals(token);
             }
             return false;
         }
-        if (tokens[2][2] == token) {
-            if (tokens[1][2] == token) {
-                return tokens[0][2] == token;
+        if (tokens[0][0].equals(token)) {
+            if (tokens[0][1].equals(token)) {
+                return tokens[0][2].equals(token);
             }
-            if (tokens[2][1] == token) {
-                return tokens[2][0] == token;
+            if (tokens[1][0].equals(token)) {
+                return tokens[2][0].equals(token);
+            }
+            return false;
+        }
+        if (tokens[2][2].equals(token)) {
+            if (tokens[1][2].equals(token)) {
+                return tokens[0][2].equals(token);
+            }
+            if (tokens[2][1].equals(token)) {
+                return tokens[2][0].equals(token);
             }
             return false;
         }
         return false;
+    }
+
+    public void win(int turn) {
+        IO io = new IO();
+        turn = (turn + 1) % 2;
+        io.writeln("Victoria!!!! " + Board.COLOR[turn] + "! " + Board.COLOR[turn] + "! " + Board.COLOR[turn] + "! Victoria!!!!");
     }
 
 }

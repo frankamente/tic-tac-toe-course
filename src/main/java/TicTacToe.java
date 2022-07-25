@@ -1,13 +1,15 @@
 class TicTacToe {
-    private int turn;
+
     private final Board board;
+
+    private int turn;
 
     public TicTacToe() {
         board = new Board();
         turn = 0;
     }
 
-    public void exec() {
+    public void play() {
         do {
             board.write();
             if (!board.complete()) {
@@ -18,16 +20,10 @@ class TicTacToe {
             turn = (turn + 1) % 2;
         } while (!board.existTTT());
         board.write();
-        this.message(turn);
-    }
-
-    public void message(int turn) {
-        IO io = new IO();
-        turn = (turn + 1) % 2;
-        io.writeln("Victoria!!!! " + Board.COLOR[turn] + "! " + Board.COLOR[turn] + "! " + Board.COLOR[turn] + "! Victoria!!!!");
+        board.win(turn);
     }
 
     public static void main(String[] args) {
-        new TicTacToe().exec();
+        new TicTacToe().play();
     }
 }
