@@ -27,6 +27,7 @@ class TicTacToe {
             } else {
                 players[turn.take()].move(board);
             }
+            turn.change();
         } while (!board.existTTT());
         board.write();
         players[turn.notTake()].win();
