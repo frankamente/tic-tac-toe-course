@@ -38,20 +38,20 @@ public class Board {
         return c == (Board.DIMENSION * TicTacToe.NUM_PLAYERS);
     }
 
-    public void put(int row, int column, Color color) {
-        colors[row][column] = color;
+    public void put(Coordinate coordinate, Color color) {
+        colors[coordinate.getRow()][coordinate.getColumn()] = color;
     }
 
-    public void remove(int row, int column) {
-        this.put(row, column, Color.NONE);
+    public void remove(Coordinate coordinate) {
+        this.put(coordinate, Color.NONE);
     }
 
-    public boolean empty(int row, int column) {
-        return this.full(row, column, Color.NONE);
+    public boolean empty(Coordinate coordinate) {
+        return this.full(coordinate, Color.NONE);
     }
 
-    public boolean full(int row, int column, Color color) {
-        return colors[row][column] == color;
+    public boolean full(Coordinate coordinate, Color color) {
+        return colors[coordinate.getRow()][coordinate.getColumn()] == color;
     }
 
     public boolean existTTT() {
