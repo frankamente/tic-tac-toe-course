@@ -8,7 +8,7 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/tictactoe/Board.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tictactoe/Board.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/tictactoe/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tictactoe/Player.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/tictactoe/Token.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/tictactoe/TicTacToe.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tictactoe/TicTacToe.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -19,6 +19,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Class" />
+        <option value="Enum" />
       </list>
     </option>
   </component>

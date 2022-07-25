@@ -8,11 +8,13 @@ class TicTacToe {
 
     private int turn;
 
+    public static final int NUM_PLAYERS = 2;
+
     public TicTacToe() {
         board = new Board();
         turn = 0;
-        players = new Player[2];
-        for (int i = 0; i < 2; i++) {
+        players = new Player[TicTacToe.NUM_PLAYERS];
+        for (int i = 0; i < TicTacToe.NUM_PLAYERS; i++) {
             players[i] = new Player(i);
         }
     }
@@ -25,10 +27,10 @@ class TicTacToe {
             } else {
                 players[turn].move(board);
             }
-            turn = (turn + 1) % 2;
+            turn = (turn + 1) % TicTacToe.NUM_PLAYERS;
         } while (!board.existTTT());
         board.write();
-        players[turn].win();
+        players[(turn + 1) % TicTacToe.NUM_PLAYERS].win();
     }
 
     public static void main(String[] args) {
