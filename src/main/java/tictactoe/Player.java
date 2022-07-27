@@ -3,8 +3,10 @@ package tictactoe;
 public class Player {
 
     private final Color color;
+    private final Board board;
 
-    public Player(int i) {
+    public Player(int i, Board board) {
+        this.board = board;
         if (i == 0) {
             color = Color.X;
         } else {
@@ -12,13 +14,13 @@ public class Player {
         }
     }
 
-    public void put(Board board) {
+    public void put() {
         IO io = new IO();
         io.writeln("Pone el jugador " + color.getValue());
-        put(board, "En");
+        this.put("En", null);
     }
 
-    public void move(Board board) {
+    public void move() {
         IO io = new IO();
         io.writeln("Mueve el jugador " + color.getValue());
         Coordinate origin = new Coordinate();
@@ -31,14 +33,10 @@ public class Player {
             }
         } while (!ok);
         board.remove(origin);
-        this.put(board, "A", origin);
+        this.put("A", origin);
     }
 
-    private void put(Board board, String title) {
-        this.put(board, title, null);
-    }
-
-    private void put(Board board, String title, Coordinate forbiddenCoordinate) {
+    private void put(String title, Coordinate forbiddenCoordinate) {
         IO io = new IO();
         Coordinate target = new Coordinate();
         boolean ok;

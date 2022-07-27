@@ -15,7 +15,7 @@ class TicTacToe {
         turn = new Turn();
         players = new Player[TicTacToe.NUM_PLAYERS];
         for (int i = 0; i < TicTacToe.NUM_PLAYERS; i++) {
-            players[i] = new Player(i);
+            players[i] = new Player(i, board);
         }
     }
 
@@ -23,9 +23,9 @@ class TicTacToe {
         do {
             board.write();
             if (!board.complete()) {
-                players[turn.take()].put(board);
+                players[turn.take()].put();
             } else {
-                players[turn.take()].move(board);
+                players[turn.take()].move();
             }
             turn.change();
         } while (!board.existTTT());
