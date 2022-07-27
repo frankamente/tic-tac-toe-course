@@ -1,18 +1,21 @@
 package tictactoe;
 
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
+
 public class Board {
 
-    private final Color[][] colors;
+    private final Map<Integer, Set<Coordinate>> coordinates;
 
     public static final int DIMENSION = 3;
 
     public Board() {
 
-        this.colors = new Color[Board.DIMENSION][Board.DIMENSION];
-        for (int i = 0; i < Board.DIMENSION; i++) {
-            for (int j = 0; j < Board.DIMENSION; j++) {
-                colors[i][j] = Color.NONE;
-            }
+        this.coordinates = new HashMap<>();
+        for (int i = 0; i < TicTacToe.NUM_PLAYERS; i++) {
+            coordinates.put(i, new HashSet<>());
         }
     }
 
@@ -20,26 +23,31 @@ public class Board {
         IO io = new IO();
         for (int i = 0; i < Board.DIMENSION; i++) {
             for (int j = 0; j < Board.DIMENSION; j++) {
-                io.write(colors[i][j].getColor() + " ");
+                io.write(this.getColor(new Coordinate(i, j)).getValue() + " ");
             }
             io.writeln();
         }
     }
 
-    public boolean complete() {
-        int c = 0;
-        for (int i = 0; i < Board.DIMENSION; i++) {
-            for (int j = 0; j < Board.DIMENSION; j++) {
-                if (colors[i][j] != Color.NONE) {
-                    c++;
-                }
+    private Color getColor(Coordinate coordinate) {
+        for (int i = 0; i < TicTacToe.NUM_PLAYERS; i++) {
+            if (coordinates.get(i).contains(coordinate)) {
+                return Color.values()[i];
             }
         }
-        return c == (Board.DIMENSION * TicTacToe.NUM_PLAYERS);
+        return Color.NONE;
+    }
+
+    public boolean complete() {
+        int numberOfTokens = 0;
+        for (int i = 0; i < TicTacToe.NUM_PLAYERS; i++) {
+            numberOfTokens += coordinates.get(i).size();
+        }
+        return numberOfTokens == (Board.DIMENSION * TicTacToe.NUM_PLAYERS);
     }
 
     public void put(Coordinate coordinate, Color color) {
-        colors[coordinate.getRow()][coordinate.getColumn()] = color;
+        coordinates.get(color.ordinal()).add(coordinate);
     }
 
     public void remove(Coordinate coordinate) {
@@ -51,7 +59,7 @@ public class Board {
     }
 
     public boolean full(Coordinate coordinate, Color color) {
-        return colors[coordinate.getRow()][coordinate.getColumn()] == color;
+        return coordinates.get(color.ordinal()).contains(coordinate);
     }
 
     public boolean existTTT() {
@@ -59,39 +67,22 @@ public class Board {
     }
 
     private boolean existTTT(Color color) {
-        if (colors[1][1] == color) {
-            if (colors[0][0] == color) {
-                return colors[2][2] == color;
-            }
-            if (colors[0][2] == color) {
-                return colors[2][0] == color;
-            }
-            if (colors[0][1] == color) {
-                return colors[2][1] == color;
-            }
-            if (colors[1][0] == color) {
-                return colors[1][2] == color;
-            }
+        Set<Coordinate> coordinateSet = coordinates.get(color.ordinal());
+
+        if (coordinateSet.size() != Board.DIMENSION) {
             return false;
         }
-        if (colors[0][0] == color) {
-            if (colors[0][1] == color) {
-                return colors[0][2] == color;
+
+        Coordinate[] coordinateArray = coordinateSet.toArray(new Coordinate[0]);
+        Direction direction = coordinateArray[0].direction(coordinateArray[1]);
+
+        for (int i = 1; i < coordinateSet.size() - 1; i++) {
+            Direction newDirection = coordinateArray[i].direction(coordinateArray[i + 1]);
+            if (!direction.equals(newDirection)) {
+                return false;
             }
-            if (colors[1][0] == color) {
-                return colors[2][0] == color;
-            }
-            return false;
         }
-        if (colors[2][2] == color) {
-            if (colors[1][2] == color) {
-                return colors[0][2] == color;
-            }
-            if (colors[2][1] == color) {
-                return colors[2][0] == color;
-            }
-            return false;
-        }
-        return false;
+
+        return true;
     }
 }

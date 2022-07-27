@@ -14,13 +14,13 @@ public class Player {
 
     public void put(Board board) {
         IO io = new IO();
-        io.writeln("Pone el jugador " + color.getColor());
+        io.writeln("Pone el jugador " + color.getValue());
         put(board, "En");
     }
 
     public void move(Board board) {
         IO io = new IO();
-        io.writeln("Mueve el jugador " + color.getColor());
+        io.writeln("Mueve el jugador " + color.getValue());
         Coordinate origin = new Coordinate();
         boolean ok;
         do {
@@ -57,6 +57,6 @@ public class Player {
 
     public void win() {
         IO io = new IO();
-        io.writeln("Victoria!!!! Gana el jugador: " + color.getColor());
+        io.writeln("Victoria!!!! Gana el jugador: " + color.getValue());
     }
 }

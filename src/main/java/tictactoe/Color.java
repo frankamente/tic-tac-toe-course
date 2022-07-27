@@ -1,18 +1,18 @@
 package tictactoe;
 
 public enum Color {
-    NONE('_'),
     X('x'),
-    O('o');
+    O('o'),
+    NONE('_');
 
-    private final char color;
+    private final char value;
 
-    Color(char color) {
+    Color(char value) {
 
-        this.color = color;
+        this.value = value;
     }
 
-    public char getColor() {
-        return color;
+    public char getValue() {
+        return value;
     }
 }
