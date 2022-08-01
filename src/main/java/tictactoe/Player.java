@@ -5,9 +5,9 @@ public class Player {
     private final Color color;
     private final Board board;
 
-    public Player(int i, Board board) {
+    public Player(int player, Board board) {
         this.board = board;
-        if (i == 0) {
+        if (player == 0) {
             color = Color.X;
         } else {
             color = Color.O;
