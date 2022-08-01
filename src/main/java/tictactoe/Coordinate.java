@@ -3,6 +3,9 @@ package tictactoe;
 import java.util.Objects;
 
 public class Coordinate {
+
+    public static final int DIMENSION = 3;
+
     private int row;
     private int column;
 
@@ -17,8 +20,8 @@ public class Coordinate {
     public void read(String title) {
         IO io = new IO();
         io.writeln(title + " qué casilla?");
-        row = new LimitedIntDialog("Fila?", 1, Board.DIMENSION).read() - 1;
-        column = new LimitedIntDialog("Columna?", 1, Board.DIMENSION).read() - 1;
+        row = new LimitedIntDialog("Fila?", 1, Coordinate.DIMENSION).read() - 1;
+        column = new LimitedIntDialog("Columna?", 1, Coordinate.DIMENSION).read() - 1;
     }
 
     public Direction direction(Coordinate coordinate) {

@@ -9,20 +9,18 @@ public class Board {
 
     private final Map<Integer, Set<Coordinate>> coordinates;
 
-    public static final int DIMENSION = 3;
-
-    public Board() {
+    public Board(int numPlayers) {
 
         this.coordinates = new HashMap<>();
-        for (int i = 0; i < TicTacToe.NUM_PLAYERS; i++) {
+        for (int i = 0; i < numPlayers; i++) {
             coordinates.put(i, new HashSet<>());
         }
     }
 
     public void write() {
         IO io = new IO();
-        for (int i = 0; i < Board.DIMENSION; i++) {
-            for (int j = 0; j < Board.DIMENSION; j++) {
+        for (int i = 0; i < Coordinate.DIMENSION; i++) {
+            for (int j = 0; j < Coordinate.DIMENSION; j++) {
                 io.write(this.getColor(new Coordinate(i, j)).getValue() + " ");
             }
             io.writeln();
@@ -30,9 +28,9 @@ public class Board {
     }
 
     private Color getColor(Coordinate coordinate) {
-        for (int i = 0; i < TicTacToe.NUM_PLAYERS; i++) {
-            if (coordinates.get(i).contains(coordinate)) {
-                return Color.values()[i];
+        for (Integer player : coordinates.keySet()) {
+            if (coordinates.get(player).contains(coordinate)) {
+                return Color.values()[player];
             }
         }
         return Color.NONE;
@@ -40,10 +38,10 @@ public class Board {
 
     public boolean complete() {
         int numberOfTokens = 0;
-        for (int i = 0; i < TicTacToe.NUM_PLAYERS; i++) {
-            numberOfTokens += coordinates.get(i).size();
+        for (Integer player : coordinates.keySet()) {
+            numberOfTokens += coordinates.get(player).size();
         }
-        return numberOfTokens == (Board.DIMENSION * TicTacToe.NUM_PLAYERS);
+        return numberOfTokens == (Coordinate.DIMENSION * coordinates.keySet().size());
     }
 
     public void put(Coordinate coordinate, Color color) {
@@ -69,7 +67,7 @@ public class Board {
     private boolean existTTT(Color color) {
         Set<Coordinate> coordinateSet = coordinates.get(color.ordinal());
 
-        if (coordinateSet.size() != Board.DIMENSION) {
+        if (coordinateSet.size() != Coordinate.DIMENSION) {
             return false;
         }
 

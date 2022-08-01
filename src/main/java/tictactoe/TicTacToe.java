@@ -9,7 +9,7 @@ class TicTacToe {
     public static final int NUM_PLAYERS = 2;
 
     public TicTacToe() {
-        board = new Board();
+        board = new Board(NUM_PLAYERS);
         Player[] players = new Player[TicTacToe.NUM_PLAYERS];
         for (int i = 0; i < TicTacToe.NUM_PLAYERS; i++) {
             players[i] = new Player(i, board);

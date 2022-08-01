@@ -25,6 +25,6 @@ public class Turn {
   }
 
     private int other() {
-        return (value + 1) % TicTacToe.NUM_PLAYERS;
+        return (value + 1) % players.length;
     }
 }
