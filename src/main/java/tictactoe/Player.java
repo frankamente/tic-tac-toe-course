@@ -23,7 +23,7 @@ public class Player {
     public void move() {
         IO io = new IO();
         io.writeln("Mueve el jugador " + color.getValue());
-        Coordinate origin = new Coordinate();
+        TicTacToeCoordinate origin = new TicTacToeCoordinate();
         boolean ok;
         do {
             origin.read("De");
@@ -36,9 +36,9 @@ public class Player {
         this.put("A", origin);
     }
 
-    private void put(String title, Coordinate forbiddenCoordinate) {
+    private void put(String title, TicTacToeCoordinate forbiddenTicTacToeCoordinate) {
         IO io = new IO();
-        Coordinate target = new Coordinate();
+        TicTacToeCoordinate target = new TicTacToeCoordinate();
         boolean ok;
         do {
             target.read(title);
@@ -46,7 +46,7 @@ public class Player {
             if (!ok) {
                 io.writeln("Esa casilla no está vacía");
             }
-            if (ok && target.equals(forbiddenCoordinate)) {
+            if (ok && target.equals(forbiddenTicTacToeCoordinate)) {
                 io.writeln("No se puede poner en el mismo lugar en el que estaba");
             }
         } while (!ok);

@@ -7,29 +7,29 @@ import java.util.Set;
 
 public class Board {
 
-    private final Map<Integer, Set<Coordinate>> coordinates;
+    private final Map<Integer, Set<TicTacToeCoordinate>> ticTacToeCoordinates;
 
     public Board(int numPlayers) {
 
-        this.coordinates = new HashMap<>();
+        this.ticTacToeCoordinates = new HashMap<>();
         for (int i = 0; i < numPlayers; i++) {
-            coordinates.put(i, new HashSet<>());
+            ticTacToeCoordinates.put(i, new HashSet<>());
         }
     }
 
     public void write() {
         IO io = new IO();
-        for (int i = 0; i < Coordinate.DIMENSION; i++) {
-            for (int j = 0; j < Coordinate.DIMENSION; j++) {
-                io.write(this.getColor(new Coordinate(i, j)).getValue() + " ");
+        for (int i = 0; i < TicTacToeCoordinate.DIMENSION; i++) {
+            for (int j = 0; j < TicTacToeCoordinate.DIMENSION; j++) {
+                io.write(this.getColor(new TicTacToeCoordinate(i, j)).getValue() + " ");
             }
             io.writeln();
         }
     }
 
-    private Color getColor(Coordinate coordinate) {
-        for (Integer player : coordinates.keySet()) {
-            if (coordinates.get(player).contains(coordinate)) {
+    private Color getColor(TicTacToeCoordinate ticTacToeCoordinate) {
+        for (Integer player : ticTacToeCoordinates.keySet()) {
+            if (ticTacToeCoordinates.get(player).contains(ticTacToeCoordinate)) {
                 return Color.values()[player];
             }
         }
@@ -38,26 +38,26 @@ public class Board {
 
     public boolean complete() {
         int numberOfTokens = 0;
-        for (Integer player : coordinates.keySet()) {
-            numberOfTokens += coordinates.get(player).size();
+        for (Integer player : ticTacToeCoordinates.keySet()) {
+            numberOfTokens += ticTacToeCoordinates.get(player).size();
         }
-        return numberOfTokens == (Coordinate.DIMENSION * coordinates.keySet().size());
+        return numberOfTokens == (TicTacToeCoordinate.DIMENSION * ticTacToeCoordinates.keySet().size());
     }
 
-    public void put(Coordinate coordinate, Color color) {
-        coordinates.get(color.ordinal()).add(coordinate);
+    public void put(TicTacToeCoordinate ticTacToeCoordinate, Color color) {
+        ticTacToeCoordinates.get(color.ordinal()).add(ticTacToeCoordinate);
     }
 
-    public void remove(Coordinate coordinate) {
-        this.put(coordinate, Color.NONE);
+    public void remove(TicTacToeCoordinate ticTacToeCoordinate) {
+        this.put(ticTacToeCoordinate, Color.NONE);
     }
 
-    public boolean empty(Coordinate coordinate) {
-        return this.full(coordinate, Color.NONE);
+    public boolean empty(TicTacToeCoordinate ticTacToeCoordinate) {
+        return this.full(ticTacToeCoordinate, Color.NONE);
     }
 
-    public boolean full(Coordinate coordinate, Color color) {
-        return coordinates.get(color.ordinal()).contains(coordinate);
+    public boolean full(TicTacToeCoordinate ticTacToeCoordinate, Color color) {
+        return ticTacToeCoordinates.get(color.ordinal()).contains(ticTacToeCoordinate);
     }
 
     public boolean existTTT() {
@@ -65,17 +65,17 @@ public class Board {
     }
 
     private boolean existTTT(Color color) {
-        Set<Coordinate> coordinateSet = coordinates.get(color.ordinal());
+        Set<TicTacToeCoordinate> ticTacToeCoordinateSet = ticTacToeCoordinates.get(color.ordinal());
 
-        if (coordinateSet.size() != Coordinate.DIMENSION) {
+        if (ticTacToeCoordinateSet.size() != TicTacToeCoordinate.DIMENSION) {
             return false;
         }
 
-        Coordinate[] coordinateArray = coordinateSet.toArray(new Coordinate[0]);
-        Direction direction = coordinateArray[0].direction(coordinateArray[1]);
+        TicTacToeCoordinate[] ticTacToeCoordinateArray = ticTacToeCoordinateSet.toArray(new TicTacToeCoordinate[0]);
+        Direction direction = ticTacToeCoordinateArray[0].direction(ticTacToeCoordinateArray[1]);
 
-        for (int i = 1; i < coordinateSet.size() - 1; i++) {
-            Direction newDirection = coordinateArray[i].direction(coordinateArray[i + 1]);
+        for (int i = 1; i < ticTacToeCoordinateSet.size() - 1; i++) {
+            Direction newDirection = ticTacToeCoordinateArray[i].direction(ticTacToeCoordinateArray[i + 1]);
             if (!direction.equals(newDirection)) {
                 return false;
             }
