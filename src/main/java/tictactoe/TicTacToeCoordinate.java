@@ -1,28 +1,29 @@
 package tictactoe;
 
-public class TicTacToeCoordinate extends Coordinate{
+public class TicTacToeCoordinate {
 
     public static final int DIMENSION = 3;
+    private final Coordinate coordinate;
 
     public TicTacToeCoordinate() {
+        coordinate = new Coordinate();
     }
 
     public TicTacToeCoordinate(int row, int column) {
-        super.setRow(row);
-        super.setColumn(column);
+        coordinate = new Coordinate(row, column);
     }
 
     public void read(String title) {
         IO io = new IO();
         io.writeln(title + " qué casilla?");
-        this.setRow(new LimitedIntDialog("Fila?", 1, TicTacToeCoordinate.DIMENSION).read() - 1);
-        this.setColumn(new LimitedIntDialog("Columna?", 1, TicTacToeCoordinate.DIMENSION).read() - 1);
+        coordinate.setRow(new LimitedIntDialog("Fila?", 1, TicTacToeCoordinate.DIMENSION).read() - 1);
+        coordinate.setColumn(new LimitedIntDialog("Columna?", 1, TicTacToeCoordinate.DIMENSION).read() - 1);
     }
 
-    public Direction direction(TicTacToeCoordinate coordinate) {
-        Direction direction = super.direction(coordinate);
+    public Direction direction(TicTacToeCoordinate ticTacToeCoordinate) {
+        Direction direction = coordinate.direction(ticTacToeCoordinate.coordinate);
         if (direction == Direction.NON_EXISTENT) {
-            if (this.inInverse() && coordinate.inInverse()) {
+            if (this.inInverse() && ticTacToeCoordinate.inInverse()) {
                 return Direction.INVERSE;
             }
         }
@@ -30,6 +31,6 @@ public class TicTacToeCoordinate extends Coordinate{
     }
 
     private boolean inInverse() {
-        return this.getRow() + this.getColumn() == TicTacToeCoordinate.DIMENSION - 1;
+        return coordinate.getRow() + coordinate.getColumn() == TicTacToeCoordinate.DIMENSION - 1;
     }
 }
