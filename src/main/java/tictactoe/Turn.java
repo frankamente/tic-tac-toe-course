@@ -2,29 +2,27 @@ package tictactoe;
 
 public class Turn {
 
-  private final Player[] players;
-  private int value;
+    private int value;
 
-  public Turn(Player[] players) {
-    this.value = 0;
-    this.players = players;
-  }
+    public Turn() {
+        this.value = 0;
+    }
 
 
-  public Player take() {
-    return players[value];
-  }
+    public Color take() {
+        return Color.values()[value];
+    }
 
 
-  public Player notTake() {
-    return players[other()];
-  }
+    public Color notTake() {
+        return Color.values()[other()];
+    }
 
-  public void change() {
-    value = other();
-  }
+    public void change() {
+        value = other();
+    }
 
     private int other() {
-        return (value + 1) % players.length;
+        return (value + 1) % Color.values().length;
     }
 }

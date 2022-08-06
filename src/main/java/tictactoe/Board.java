@@ -53,7 +53,7 @@ public class Board {
     }
 
     public boolean empty(TicTacToeCoordinate ticTacToeCoordinate) {
-        return this.full(ticTacToeCoordinate, Color.NONE);
+        return !this.full(ticTacToeCoordinate, Color.X) && !this.full(ticTacToeCoordinate, Color.O);
     }
 
     public boolean full(TicTacToeCoordinate ticTacToeCoordinate, Color color) {
@@ -64,7 +64,7 @@ public class Board {
         return this.existTTT(Color.X) || this.existTTT(Color.O);
     }
 
-    private boolean existTTT(Color color) {
+    public boolean existTTT(Color color) {
         Set<TicTacToeCoordinate> ticTacToeCoordinateSet = ticTacToeCoordinates.get(color.ordinal());
 
         if (ticTacToeCoordinateSet.size() != TicTacToeCoordinate.DIMENSION) {

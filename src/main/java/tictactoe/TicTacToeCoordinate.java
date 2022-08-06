@@ -1,5 +1,7 @@
 package tictactoe;
 
+import java.util.Objects;
+
 public class TicTacToeCoordinate {
 
     public static final int DIMENSION = 3;
@@ -32,5 +34,18 @@ public class TicTacToeCoordinate {
 
     private boolean inInverse() {
         return coordinate.getRow() + coordinate.getColumn() == TicTacToeCoordinate.DIMENSION - 1;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        TicTacToeCoordinate that = (TicTacToeCoordinate) o;
+        return coordinate.equals(that.coordinate);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(coordinate);
     }
 }

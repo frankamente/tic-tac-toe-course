@@ -3,6 +3,8 @@ package tictactoe;
 class TicTacToe {
 
     private final Board board;
+    private final PutController putController;
+    private final MoveController moveController;
 
     private Turn turn;
 
@@ -10,25 +12,20 @@ class TicTacToe {
 
     public TicTacToe() {
         board = new Board(NUM_PLAYERS);
-        Player[] players = new Player[TicTacToe.NUM_PLAYERS];
-        for (int i = 0; i < TicTacToe.NUM_PLAYERS; i++) {
-            players[i] = new Player(i, board);
-        }
-        turn = new Turn(players);
+        turn = new Turn();
+        putController = new PutController(turn, board);
+        moveController = new MoveController(turn, board);
     }
 
     public void play() {
-        do {
-            board.write();
-            if (!board.complete()) {
-                turn.take().put();
-            } else {
-                turn.take().move();
-            }
-            turn.change();
-        } while (!board.existTTT());
         board.write();
-        turn.notTake().win();
+        do {
+            if (!board.complete()) {
+                putController.put();
+            } else {
+                moveController.move();
+            }
+        } while (!board.existTTT());
     }
 
     public static void main(String[] args) {
