@@ -1,46 +1,51 @@
 package tictactoe;
 
-public class MoveController {
-    private final Turn turn;
-    private final Board board;
+public class MoveController extends ColocateController {
+
+    private TicTacToeCoordinate origin;
 
     public MoveController(Turn turn, Board board) {
-        this.turn = turn;
-        this.board = board;
+        super(turn, board);
     }
 
-    public void move() {
-        IO io = new IO();
-        io.writeln("Mueve el jugador " + turn.take().getValue());
-        TicTacToeCoordinate origin = new TicTacToeCoordinate();
+    @Override
+    public void control() {
+        this.put("Mueve", "A");
+    }
+
+    @Override
+    protected void prePut() {
+        this.remove();
+    }
+
+    private void remove() {
+        origin = new TicTacToeCoordinate();
         boolean ok;
         do {
             origin.read("De");
-            ok = board.full(origin, turn.take());
-            if (!ok) {
-                io.writeln("Esa casilla no está ocupada por ninguna de tus fichas");
-            }
+            ok = this.errorToMove();
         } while (!ok);
-        board.remove(origin);
-        TicTacToeCoordinate target = new TicTacToeCoordinate();
-        do {
-            target.read("A");
-            ok = board.empty(target);
-            if (!ok) {
-                io.writeln("Esa casilla no está vacía");
-            } else {
-                ok = !origin.equals(target);
-                if (!ok) {
-                    io.writeln("No se puede poner de donde se quitó");
-                }
-            }
-        } while (!ok);
-        board.put(target, turn.take());
-        board.write();
-        if (board.existTTT(turn.take())) {
-            io.writeln("Victoria!!!! Gana el jugador: " + turn.take().getValue());
-        } else {
-            turn.change();
+        this.getBoard().remove(origin);
+    }
+
+    private boolean errorToMove() {
+        boolean ok;
+        ok = this.getBoard().full(origin, this.getTurn().take());
+        if (!ok) {
+            new IO().writeln("Esa casilla no está ocupada por ninguna de tus fichas");
         }
+        return ok;
+    }
+
+    @Override
+    protected boolean errorToPut() {
+        boolean ok = super.errorToPut();
+        if (ok) {
+            ok = !origin.equals(this.getTarget());
+            if (!ok) {
+                new IO().writeln("No se puede poner de donde se quitó");
+            }
+        }
+        return ok;
     }
 }

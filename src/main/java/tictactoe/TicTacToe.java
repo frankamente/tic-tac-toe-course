@@ -21,9 +21,9 @@ class TicTacToe {
         board.write();
         do {
             if (!board.complete()) {
-                putController.put();
+                putController.control();
             } else {
-                moveController.move();
+                moveController.control();
             }
         } while (!board.existTTT());
     }
