@@ -6,13 +6,11 @@ class TicTacToe {
     private final PutController putController;
     private final MoveController moveController;
 
-    private Turn turn;
-
     public static final int NUM_PLAYERS = 2;
 
     public TicTacToe() {
         board = new Board(NUM_PLAYERS);
-        turn = new Turn();
+        Turn turn = new Turn();
         putController = new PutController(turn, board);
         moveController = new MoveController(turn, board);
     }

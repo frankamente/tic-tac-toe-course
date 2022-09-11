@@ -6,7 +6,7 @@ public abstract class ColocateController {
     private final Turn turn;
     private final Board board;
 
-    private final TicTacToeCoordinate target;
+    private TicTacToeCoordinate target;
 
     public ColocateController(Turn turn, Board board) {
         this.turn = turn;
@@ -19,13 +19,7 @@ public abstract class ColocateController {
     protected void put(String actionTitle, String targetTitle) {
         IO io = new IO();
         io.writeln(actionTitle + " el jugador " + turn.take().getValue());
-        this.prePut();
-        boolean ok;
-        do {
-            target.read(targetTitle);
-            ok = this.errorToPut();
-        } while (!ok);
-        board.put(target, turn.take());
+        this.colocate(targetTitle);
         board.write();
         if (board.existTTT(turn.take())) {
             io.writeln("Victoria!!!! Gana el jugador: " + turn.take().getValue());
@@ -34,7 +28,17 @@ public abstract class ColocateController {
         }
     }
 
-    protected abstract void prePut();
+    protected abstract void colocate(String targetTitle);
+
+    protected void put(String targetTitle) {
+        target = new TicTacToeCoordinate();
+        boolean ok;
+        do {
+            target.read(targetTitle);
+            ok = this.errorToPut();
+        } while (!ok);
+        board.put(target, turn.take());
+    }
 
     protected boolean errorToPut() {
         boolean ok;

@@ -14,8 +14,9 @@ public class MoveController extends ColocateController {
     }
 
     @Override
-    protected void prePut() {
+    protected void colocate(String targetTitle) {
         this.remove();
+        this.put(targetTitle);
     }
 
     private void remove() {

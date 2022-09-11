@@ -13,6 +13,7 @@ public class PutController extends ColocateController {
     }
 
     @Override
-    protected void prePut() {
+    protected void colocate(String targetTitle) {
+        this.put(targetTitle);
     }
 }
