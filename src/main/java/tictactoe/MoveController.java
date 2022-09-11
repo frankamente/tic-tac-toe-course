@@ -15,20 +15,25 @@ public class MoveController extends ColocateController {
         this.put("A");
     }
 
-    private void remove(){
-        origin = new TicTacToeCoordinate();
+    private void remove() {
         Error error;
         do {
-            origin.read("De");
-            error = this.errorToRemove();
+            origin = this.selectOrigin();
+            error = this.validateOrigin();
             if (error != null) {
                 new IO().writeln(error.toString());
             }
         } while (error != null);
-        this.getBoard().remove(origin);
+        this.getBoard().remove(origin, this.getTurn().take());
     }
 
-    private Error errorToRemove() {
+    private TicTacToeCoordinate selectOrigin() {
+        TicTacToeCoordinate origin = new TicTacToeCoordinate();
+        origin.read("De");
+        return origin;
+    }
+
+    private Error validateOrigin() {
         if (!this.getBoard().full(origin, this.getTurn().take())) {
             return Error.NOT_PROPERTY;
         }
@@ -36,13 +41,21 @@ public class MoveController extends ColocateController {
     }
 
     @Override
-    protected Error errorToPut() {
-        Error error = super.errorToPut();
+    protected Error validateTarget() {
+        Error error = super.validateTarget();
         if (error != null) {
-            if (origin.equals(this.getTarget())) {
-                return Error.REPEATED_COORDINATED;
-            }
+            return error;
         }
-        return error;
+        if (origin.equals(this.getTarget())) {
+            return Error.REPEATED_COORDINATE;
+        }
+        return null;
+    }
+
+    @Override
+    protected TicTacToeCoordinate selectTarget(String targetTitle) {
+        TicTacToeCoordinate target = new TicTacToeCoordinate();
+        target.read(targetTitle);
+        return target;
     }
 }

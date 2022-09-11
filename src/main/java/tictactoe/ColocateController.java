@@ -27,19 +27,20 @@ public abstract class ColocateController extends Controller {
     protected abstract void colocate();
 
     protected void put(String targetTitle) {
-        target = new TicTacToeCoordinate();
         Error error;
         do {
-            target.read(targetTitle);
-            error = this.errorToPut();
+            target = this.selectTarget(targetTitle);
+            error = this.validateTarget();
             if (error != null) {
-                new IO().writeln(error.toString());
+                new IO().writeln("" + error);
             }
         } while (error != null);
         this.getBoard().put(target, this.getTurn().take());
     }
 
-    protected Error errorToPut() {
+    protected abstract TicTacToeCoordinate selectTarget(String targetTitle);
+
+    protected Error validateTarget() {
         if (!this.getBoard().empty(target)) {
             return Error.NOT_EMPTY;
         }

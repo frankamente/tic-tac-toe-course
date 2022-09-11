@@ -48,8 +48,8 @@ public class Board {
         ticTacToeCoordinates.get(color.ordinal()).add(ticTacToeCoordinate);
     }
 
-    public void remove(TicTacToeCoordinate ticTacToeCoordinate) {
-        this.put(ticTacToeCoordinate, Color.NONE);
+    public void remove(TicTacToeCoordinate ticTacToeCoordinate, Color color) {
+        ticTacToeCoordinates.get(color.ordinal()).remove(ticTacToeCoordinate);
     }
 
     public boolean empty(TicTacToeCoordinate ticTacToeCoordinate) {

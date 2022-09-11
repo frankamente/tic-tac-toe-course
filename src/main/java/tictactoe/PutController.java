@@ -10,4 +10,11 @@ public class PutController extends ColocateController {
     protected void colocate() {
         this.put("En");
     }
+
+    @Override
+    protected TicTacToeCoordinate selectTarget(String targetTitle) {
+        TicTacToeCoordinate target = new TicTacToeCoordinate();
+        target.read(targetTitle);
+        return target;
+    }
 }
