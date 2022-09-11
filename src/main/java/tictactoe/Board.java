@@ -60,10 +60,6 @@ public class Board {
         return ticTacToeCoordinates.get(color.ordinal()).contains(ticTacToeCoordinate);
     }
 
-    public boolean existTTT() {
-        return this.existTTT(Color.X) || this.existTTT(Color.O);
-    }
-
     public boolean existTTT(Color color) {
         Set<TicTacToeCoordinate> ticTacToeCoordinateSet = ticTacToeCoordinates.get(color.ordinal());
 

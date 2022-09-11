@@ -3,7 +3,6 @@ package tictactoe;
 public class PutController extends ColocateController {
 
     public PutController(Game game) {
-
         super(game);
     }
 
