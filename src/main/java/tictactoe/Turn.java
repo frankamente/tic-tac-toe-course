@@ -23,6 +23,6 @@ public class Turn {
     }
 
     private int other() {
-        return (value + 1) % Color.values().length;
+        return (value + 1) % (Color.values().length - 1);
     }
 }

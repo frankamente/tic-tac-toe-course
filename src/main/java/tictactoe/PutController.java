@@ -3,16 +3,11 @@ package tictactoe;
 public class PutController extends ColocateController {
 
     public PutController(Game game) {
-        super(game);
+        super(game, "Pone");
     }
 
     @Override
-    public void control() {
-        this.put("Pone", "En");
-    }
-
-    @Override
-    protected void colocate(String targetTitle) {
-        this.put(targetTitle);
+    protected void colocate() {
+        this.put("En");
     }
 }

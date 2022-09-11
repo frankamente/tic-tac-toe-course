@@ -61,22 +61,21 @@ public class Board {
     }
 
     public boolean existTTT(Color color) {
-        Set<TicTacToeCoordinate> ticTacToeCoordinateSet = ticTacToeCoordinates.get(color.ordinal());
-
-        if (ticTacToeCoordinateSet.size() != TicTacToeCoordinate.DIMENSION) {
+        Set<TicTacToeCoordinate> coordinateSet = ticTacToeCoordinates.get(color.ordinal());
+        if (coordinateSet.size() != TicTacToeCoordinate.DIMENSION) {
             return false;
         }
-
-        TicTacToeCoordinate[] ticTacToeCoordinateArray = ticTacToeCoordinateSet.toArray(new TicTacToeCoordinate[0]);
-        Direction direction = ticTacToeCoordinateArray[0].direction(ticTacToeCoordinateArray[1]);
-
-        for (int i = 1; i < ticTacToeCoordinateSet.size() - 1; i++) {
-            Direction newDirection = ticTacToeCoordinateArray[i].direction(ticTacToeCoordinateArray[i + 1]);
-            if (!direction.equals(newDirection)) {
+        TicTacToeCoordinate[] coordinateArray = coordinateSet
+                .toArray(new TicTacToeCoordinate[0]);
+        Direction direction = coordinateArray[0].direction(coordinateArray[1]);
+        if (direction == Direction.NON_EXISTENT) {
+            return false;
+        }
+        for (int i = 1; i < TicTacToeCoordinate.DIMENSION - 1; i++) {
+            if (coordinateArray[i].direction(coordinateArray[i + 1]) != direction) {
                 return false;
             }
         }
-
         return true;
     }
 

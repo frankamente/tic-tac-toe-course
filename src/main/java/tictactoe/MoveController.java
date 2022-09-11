@@ -5,21 +5,17 @@ public class MoveController extends ColocateController {
     private TicTacToeCoordinate origin;
 
     public MoveController(Game game) {
-        super(game);
+        super(game, "Mueve");
+        origin = new TicTacToeCoordinate();
     }
 
     @Override
-    public void control() {
-        this.put("Mueve", "A");
-    }
-
-    @Override
-    protected void colocate(String targetTitle) {
+    protected void colocate() {
         this.remove();
-        this.put(targetTitle);
+        this.put("A");
     }
 
-    private void remove() {
+    private void remove(){
         origin = new TicTacToeCoordinate();
         Error error;
         do {

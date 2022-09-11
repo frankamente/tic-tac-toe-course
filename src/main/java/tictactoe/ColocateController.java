@@ -2,19 +2,19 @@ package tictactoe;
 
 public abstract class ColocateController extends Controller {
 
+    private final String actionTitle;
     private TicTacToeCoordinate target;
 
-    public ColocateController(Game game) {
+    public ColocateController(Game game, String actionTitle) {
         super(game);
+        this.actionTitle = actionTitle;
         this.target = new TicTacToeCoordinate();
     }
 
-    public abstract void control();
-
-    protected void put(String actionTitle, String targetTitle) {
+    public void control() {
         IO io = new IO();
         io.writeln(actionTitle + " el jugador " + this.getTurn().take().getValue());
-        this.colocate(targetTitle);
+        this.colocate();
         this.getBoard().write();
         if (this.getBoard().existTTT(this.getTurn().take())) {
             io.writeln("Victoria!!!! Gana el jugador: " + this.getTurn().take().getValue());
@@ -24,7 +24,7 @@ public abstract class ColocateController extends Controller {
         }
     }
 
-    protected abstract void colocate(String targetTitle);
+    protected abstract void colocate();
 
     protected void put(String targetTitle) {
         target = new TicTacToeCoordinate();
