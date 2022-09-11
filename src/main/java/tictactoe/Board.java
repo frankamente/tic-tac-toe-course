@@ -8,13 +8,13 @@ import java.util.Set;
 public class Board {
 
     private final Map<Integer, Set<TicTacToeCoordinate>> ticTacToeCoordinates;
+    private final int numPlayers;
 
     public Board(int numPlayers) {
+        this.numPlayers = numPlayers;
 
         this.ticTacToeCoordinates = new HashMap<>();
-        for (int i = 0; i < numPlayers; i++) {
-            ticTacToeCoordinates.put(i, new HashSet<>());
-        }
+        this.clear();
     }
 
     public void write() {
@@ -78,5 +78,11 @@ public class Board {
         }
 
         return true;
+    }
+
+    public void clear() {
+        for (int i = 0; i < numPlayers; i++) {
+            ticTacToeCoordinates.put(i, new HashSet<>());
+        }
     }
 }

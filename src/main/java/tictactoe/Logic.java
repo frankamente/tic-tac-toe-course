@@ -6,12 +6,14 @@ public class Logic {
     private final StartController startController;
     private final PutController putController;
     private final MoveController moveController;
+    private final ContinueController continueController;
 
     public Logic() {
         game = new Game();
         startController = new StartController(game);
         putController = new PutController(game);
         moveController = new MoveController(game);
+        continueController = new ContinueController(game);
     }
 
     public Controller getController() {
@@ -25,6 +27,8 @@ public class Logic {
                     return moveController;
                 }
             case FINAL:
+                return continueController;
+            case EXIT:
             default:
                 return null;
         }
