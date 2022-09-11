@@ -4,8 +4,8 @@ public class MoveController extends ColocateController {
 
     private TicTacToeCoordinate origin;
 
-    public MoveController(Turn turn, Board board) {
-        super(turn, board);
+    public MoveController(Game game) {
+        super(game);
     }
 
     @Override

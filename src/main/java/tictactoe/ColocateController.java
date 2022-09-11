@@ -3,14 +3,12 @@ package tictactoe;
 public abstract class ColocateController {
 
 
-    private final Turn turn;
-    private final Board board;
+    private final Game game;
 
     private TicTacToeCoordinate target;
 
-    public ColocateController(Turn turn, Board board) {
-        this.turn = turn;
-        this.board = board;
+    public ColocateController(Game game) {
+        this.game = game;
         this.target = new TicTacToeCoordinate();
     }
 
@@ -18,13 +16,13 @@ public abstract class ColocateController {
 
     protected void put(String actionTitle, String targetTitle) {
         IO io = new IO();
-        io.writeln(actionTitle + " el jugador " + turn.take().getValue());
+        io.writeln(actionTitle + " el jugador " + game.getTurn().take().getValue());
         this.colocate(targetTitle);
-        board.write();
-        if (board.existTTT(turn.take())) {
-            io.writeln("Victoria!!!! Gana el jugador: " + turn.take().getValue());
+        game.getBoard().write();
+        if (game.getBoard().existTTT(game.getTurn().take())) {
+            io.writeln("Victoria!!!! Gana el jugador: " + game.getTurn().take().getValue());
         } else {
-            turn.change();
+            game.getTurn().change();
         }
     }
 
@@ -40,22 +38,22 @@ public abstract class ColocateController {
                 new IO().writeln(error.toString());
             }
         } while (error != null);
-        board.put(target, turn.take());
+        game.getBoard().put(target, game.getTurn().take());
     }
 
     protected Error errorToPut() {
-        if (!board.empty(target)) {
+        if (!game.getBoard().empty(target)) {
             return Error.NOT_EMPTY;
         }
         return null;
     }
 
     public Turn getTurn() {
-        return turn;
+        return game.getTurn();
     }
 
     public Board getBoard() {
-        return board;
+        return game.getBoard();
     }
 
     public TicTacToeCoordinate getTarget() {

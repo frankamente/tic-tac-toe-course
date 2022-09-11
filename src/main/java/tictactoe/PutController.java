@@ -2,9 +2,9 @@ package tictactoe;
 
 public class PutController extends ColocateController {
 
-    public PutController(Turn turn, Board board) {
+    public PutController(Game game) {
 
-        super(turn, board);
+        super(game);
     }
 
     @Override
