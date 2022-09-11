@@ -21,32 +21,32 @@ public class MoveController extends ColocateController {
 
     private void remove() {
         origin = new TicTacToeCoordinate();
-        boolean ok;
+        Error error;
         do {
             origin.read("De");
-            ok = this.errorToMove();
-        } while (!ok);
+            error = this.errorToRemove();
+            if (error != null) {
+                new IO().writeln(error.toString());
+            }
+        } while (error != null);
         this.getBoard().remove(origin);
     }
 
-    private boolean errorToMove() {
-        boolean ok;
-        ok = this.getBoard().full(origin, this.getTurn().take());
-        if (!ok) {
-            new IO().writeln("Esa casilla no está ocupada por ninguna de tus fichas");
+    private Error errorToRemove() {
+        if (!this.getBoard().full(origin, this.getTurn().take())) {
+            return Error.NOT_PROPERTY;
         }
-        return ok;
+        return null;
     }
 
     @Override
-    protected boolean errorToPut() {
-        boolean ok = super.errorToPut();
-        if (ok) {
-            ok = !origin.equals(this.getTarget());
-            if (!ok) {
-                new IO().writeln("No se puede poner de donde se quitó");
+    protected Error errorToPut() {
+        Error error = super.errorToPut();
+        if (error != null) {
+            if (origin.equals(this.getTarget())) {
+                return Error.REPEATED_COORDINATED;
             }
         }
-        return ok;
+        return error;
     }
 }

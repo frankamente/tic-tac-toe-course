@@ -32,21 +32,22 @@ public abstract class ColocateController {
 
     protected void put(String targetTitle) {
         target = new TicTacToeCoordinate();
-        boolean ok;
+        Error error;
         do {
             target.read(targetTitle);
-            ok = this.errorToPut();
-        } while (!ok);
+            error = this.errorToPut();
+            if (error != null) {
+                new IO().writeln(error.toString());
+            }
+        } while (error != null);
         board.put(target, turn.take());
     }
 
-    protected boolean errorToPut() {
-        boolean ok;
-        ok = board.empty(target);
-        if (!ok) {
-            new IO().writeln("Esa casilla no está vacía");
+    protected Error errorToPut() {
+        if (!board.empty(target)) {
+            return Error.NOT_EMPTY;
         }
-        return ok;
+        return null;
     }
 
     public Turn getTurn() {
