@@ -1,6 +1,6 @@
 package tictactoe;
 
-public class MoveController extends ColocateController {
+public abstract class MoveController extends ColocateController {
 
     private TicTacToeCoordinate origin;
 
@@ -27,11 +27,7 @@ public class MoveController extends ColocateController {
         this.getBoard().remove(origin, this.getTurn().take());
     }
 
-    private TicTacToeCoordinate selectOrigin() {
-        TicTacToeCoordinate origin = new TicTacToeCoordinate();
-        origin.read("De");
-        return origin;
-    }
+    protected abstract TicTacToeCoordinate selectOrigin();
 
     private Error validateOrigin() {
         if (!this.getBoard().full(origin, this.getTurn().take())) {
@@ -53,9 +49,9 @@ public class MoveController extends ColocateController {
     }
 
     @Override
-    protected TicTacToeCoordinate selectTarget(String targetTitle) {
-        TicTacToeCoordinate target = new TicTacToeCoordinate();
-        target.read(targetTitle);
-        return target;
+    protected abstract TicTacToeCoordinate selectTarget(String targetTitle);
+
+    public TicTacToeCoordinate getOrigin() {
+        return origin;
     }
 }

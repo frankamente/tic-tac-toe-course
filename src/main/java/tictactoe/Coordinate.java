@@ -62,4 +62,9 @@ public class Coordinate {
     protected void setColumn(int column) {
         this.column = column;
     }
+
+    @Override
+    public String toString() {
+        return "(" + (row + 1) + ", " + (column + 1) + ')';
+    }
 }

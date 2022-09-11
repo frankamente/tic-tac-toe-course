@@ -24,4 +24,8 @@ public abstract class Controller {
     public Board getBoard() {
         return game.getBoard();
     }
+
+    protected Game getGame(){
+        return game;
+    }
 }

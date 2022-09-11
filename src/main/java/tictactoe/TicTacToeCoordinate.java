@@ -1,6 +1,7 @@
 package tictactoe;
 
 import java.util.Objects;
+import java.util.Random;
 
 public class TicTacToeCoordinate {
 
@@ -20,6 +21,12 @@ public class TicTacToeCoordinate {
         io.writeln(title + " qué casilla?");
         coordinate.setRow(new LimitedIntDialog("Fila?", 1, TicTacToeCoordinate.DIMENSION).read() - 1);
         coordinate.setColumn(new LimitedIntDialog("Columna?", 1, TicTacToeCoordinate.DIMENSION).read() - 1);
+    }
+
+    public void random() {
+        Random random = new Random(System.currentTimeMillis());
+        coordinate.setRow(random.nextInt(TicTacToeCoordinate.DIMENSION));
+        coordinate.setColumn(random.nextInt(TicTacToeCoordinate.DIMENSION));
     }
 
     public Direction direction(TicTacToeCoordinate ticTacToeCoordinate) {
@@ -47,5 +54,10 @@ public class TicTacToeCoordinate {
     @Override
     public int hashCode() {
         return Objects.hash(coordinate);
+    }
+
+    @Override
+    public String toString() {
+        return coordinate.toString();
     }
 }
