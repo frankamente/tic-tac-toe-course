@@ -8,8 +8,6 @@ public abstract class Controller {
         this.game = game;
     }
 
-    public abstract void control();
-
     protected State getState() {
         return game.getState();
     }

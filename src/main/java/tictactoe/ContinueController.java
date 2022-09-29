@@ -1,6 +1,6 @@
 package tictactoe;
 
-public class ContinueController extends Controller {
+public class ContinueController extends OperationController {
     protected ContinueController(Game game) {
         super(game);
     }

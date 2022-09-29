@@ -1,11 +1,11 @@
 package tictactoe;
 
-public abstract class MoveController extends ColocateController {
+public class MoveController extends ColocateController {
 
     private TicTacToeCoordinate origin;
 
-    public MoveController(Game game) {
-        super(game, "Mueve");
+    public MoveController(Game game, CoordinateController coordinateController) {
+        super(game, "Mueve", coordinateController);
         origin = new TicTacToeCoordinate();
     }
 
@@ -18,7 +18,7 @@ public abstract class MoveController extends ColocateController {
     private void remove() {
         Error error;
         do {
-            origin = this.selectOrigin();
+            origin = this.getCoordinateController().getOrigin();
             error = this.validateOrigin();
             if (error != null) {
                 new IO().writeln(error.toString());
@@ -26,8 +26,6 @@ public abstract class MoveController extends ColocateController {
         } while (error != null);
         this.getBoard().remove(origin, this.getTurn().take());
     }
-
-    protected abstract TicTacToeCoordinate selectOrigin();
 
     private Error validateOrigin() {
         if (!this.getBoard().full(origin, this.getTurn().take())) {
@@ -46,12 +44,5 @@ public abstract class MoveController extends ColocateController {
             return Error.REPEATED_COORDINATE;
         }
         return null;
-    }
-
-    @Override
-    protected abstract TicTacToeCoordinate selectTarget(String targetTitle);
-
-    public TicTacToeCoordinate getOrigin() {
-        return origin;
     }
 }

@@ -36,7 +36,7 @@ public class TicTacToeCoordinate {
                 return Direction.INVERSE;
             }
         }
-        return Direction.NON_EXISTENT;
+        return direction;
     }
 
     private boolean inInverse() {

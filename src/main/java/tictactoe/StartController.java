@@ -1,6 +1,6 @@
 package tictactoe;
 
-public class StartController extends Controller {
+public class StartController extends OperationController {
 
     private ColocateController[][] colocateControllerArray;
 
@@ -15,11 +15,13 @@ public class StartController extends Controller {
         colocateControllerArray = new ColocateController[2][2];
         for (int i = 0; i < 2; i++) {
             if (i < users) {
-                colocateControllerArray[i][0] = new ManualPutController(this.getGame());
-                colocateControllerArray[i][1] = new ManualMoveController(this.getGame());
+                final UserCoordinateController coordinateController = new UserCoordinateController(this.getGame());
+                colocateControllerArray[i][0] = new PutController(this.getGame(), coordinateController);
+                colocateControllerArray[i][1] = new MoveController(this.getGame(), coordinateController);
             } else {
-                colocateControllerArray[i][0] = new RandomPutController(this.getGame());
-                colocateControllerArray[i][1] = new RandomMoveController(this.getGame());
+                final RandomCoordinateController coordinateController = new RandomCoordinateController(this.getGame());
+                colocateControllerArray[i][0] = new PutController(this.getGame(), coordinateController);
+                colocateControllerArray[i][1] = new MoveController(this.getGame(), coordinateController);
             }
         }
         this.getBoard().write();

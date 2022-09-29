@@ -1,19 +1,19 @@
 package tictactoe;
 
-public class ManualMoveController extends MoveController {
-    public ManualMoveController(Game game) {
+public class UserCoordinateController extends CoordinateController {
+    public UserCoordinateController(Game game) {
         super(game);
     }
 
     @Override
-    protected TicTacToeCoordinate selectOrigin() {
+    public TicTacToeCoordinate getOrigin() {
         TicTacToeCoordinate origin = new TicTacToeCoordinate();
         origin.read("De");
         return origin;
     }
 
     @Override
-    protected TicTacToeCoordinate selectTarget(String targetTitle) {
+    public TicTacToeCoordinate getTarget(String targetTitle) {
         TicTacToeCoordinate target = new TicTacToeCoordinate();
         target.read(targetTitle);
         return target;

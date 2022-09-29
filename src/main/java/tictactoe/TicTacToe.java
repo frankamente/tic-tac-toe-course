@@ -9,7 +9,7 @@ class TicTacToe {
     }
 
     public void play() {
-        Controller controller;
+        OperationController controller;
         do {
             controller = logic.getController();
             if (controller != null) {

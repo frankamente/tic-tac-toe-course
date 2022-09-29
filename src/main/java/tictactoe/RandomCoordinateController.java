@@ -1,13 +1,16 @@
 package tictactoe;
 
-public class RandomMoveController extends MoveController {
-    public RandomMoveController(Game game) {
+public class RandomCoordinateController extends CoordinateController {
+    public RandomCoordinateController(Game game) {
         super(game);
     }
 
+    private TicTacToeCoordinate origin;
+
+
     @Override
-    protected TicTacToeCoordinate selectOrigin() {
-        TicTacToeCoordinate origin = new TicTacToeCoordinate();
+    public TicTacToeCoordinate getOrigin() {
+        origin = new TicTacToeCoordinate();
         boolean ok;
         do {
             origin.random();
@@ -15,25 +18,28 @@ public class RandomMoveController extends MoveController {
         } while (!ok);
         new IO().writeln("La máquina quita de " + origin);
         new IO().readString("Enter para continuar!");
-        return origin;
+        TicTacToeCoordinate result = origin;
+        origin = null;
+        return result;
     }
 
     @Override
-    protected TicTacToeCoordinate selectTarget(String targetTitle) {
+    public TicTacToeCoordinate getTarget(String targetTitle) {
         TicTacToeCoordinate target = new TicTacToeCoordinate();
         boolean ok;
-
         do {
             target.random();
             ok = this.getGame().getBoard().empty(target);
             if (ok) {
-                if (this.getOrigin() != null) {
-                    ok = !this.getOrigin().equals(target);
+                if (origin != null) {
+                    ok = !origin.equals(target);
                 }
             }
         } while (!ok);
         new IO().writeln("La máquina pone en " + target);
         new IO().readString("Enter para continuar!");
-        return target;
+        TicTacToeCoordinate result = target;
+        target = null;
+        return result;
     }
 }

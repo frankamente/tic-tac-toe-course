@@ -1,16 +1,13 @@
 package tictactoe;
 
-public abstract class PutController extends ColocateController {
+public class PutController extends ColocateController {
 
-    public PutController(Game game) {
-        super(game, "Pone");
+    public PutController(Game game, CoordinateController coordinateController) {
+        super(game, "Pone", coordinateController);
     }
 
     @Override
     protected void colocate() {
         this.put("En");
     }
-
-    @Override
-    protected abstract TicTacToeCoordinate selectTarget(String targetTitle);
 }
