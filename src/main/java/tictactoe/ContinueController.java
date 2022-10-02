@@ -9,7 +9,7 @@ public class ContinueController extends OperationController {
     public void control() {
         char answer = new YesNoDialog().read();
         if (answer == 's' || answer == 'S') {
-            this.getBoard().clear();
+            this.clear();
             this.setState(State.INITIAL);
         } else {
             this.setState(State.EXIT);

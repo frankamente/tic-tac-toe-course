@@ -24,11 +24,11 @@ public class MoveController extends ColocateController {
                 new IO().writeln(error.toString());
             }
         } while (error != null);
-        this.getBoard().remove(origin, this.getTurn().take());
+        this.remove(origin, this.take());
     }
 
     private Error validateOrigin() {
-        if (!this.getBoard().full(origin, this.getTurn().take())) {
+        if (!this.full(origin, this.take())) {
             return Error.NOT_PROPERTY;
         }
         return null;

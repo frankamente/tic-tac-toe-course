@@ -17,14 +17,14 @@ public abstract class ColocateController extends OperationController {
 
     public void control() {
         IO io = new IO();
-        io.writeln(actionTitle + " el jugador " + this.getTurn().take().getValue());
+        io.writeln(actionTitle + " el jugador " + this.take().getValue());
         this.colocate();
-        this.getBoard().write();
-        if (this.getBoard().existTTT(this.getTurn().take())) {
-            io.writeln("Victoria!!!! Gana el jugador: " + this.getTurn().take().getValue());
+        this.write();
+        if (this.existTTT()) {
+            io.writeln("Victoria!!!! Gana el jugador: " + this.take().getValue());
             this.setState(State.FINAL);
         } else {
-            this.getTurn().change();
+            this.change();
         }
     }
 
@@ -39,11 +39,11 @@ public abstract class ColocateController extends OperationController {
                 new IO().writeln("" + error);
             }
         } while (error != null);
-        this.getBoard().put(target, this.getTurn().take());
+        this.put(target, this.take());
     }
 
     protected Error validateTarget() {
-        if (!this.getBoard().empty(target)) {
+        if (!this.empty(target)) {
             return Error.NOT_EMPTY;
         }
         return null;

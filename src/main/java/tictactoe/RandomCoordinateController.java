@@ -14,7 +14,7 @@ public class RandomCoordinateController extends CoordinateController {
         boolean ok;
         do {
             origin.random();
-            ok = this.getGame().getBoard().full(origin, this.getTurn().take());
+            ok = this.full(origin, this.take());
         } while (!ok);
         new IO().writeln("La máquina quita de " + origin);
         new IO().readString("Enter para continuar!");
@@ -29,7 +29,7 @@ public class RandomCoordinateController extends CoordinateController {
         boolean ok;
         do {
             target.random();
-            ok = this.getGame().getBoard().empty(target);
+            ok = this.empty(target);
             if (ok) {
                 if (origin != null) {
                     ok = !origin.equals(target);
@@ -38,8 +38,6 @@ public class RandomCoordinateController extends CoordinateController {
         } while (!ok);
         new IO().writeln("La máquina pone en " + target);
         new IO().readString("Enter para continuar!");
-        TicTacToeCoordinate result = target;
-        target = null;
-        return result;
+        return target;
     }
 }
