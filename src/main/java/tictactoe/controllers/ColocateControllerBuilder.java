@@ -1,4 +1,6 @@
-package tictactoe;
+package tictactoe.controllers;
+
+import tictactoe.models.Game;
 
 public class ColocateControllerBuilder {
 

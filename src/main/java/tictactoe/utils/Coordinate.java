@@ -1,4 +1,4 @@
-package tictactoe;
+package tictactoe.utils;
 
 import java.util.Objects;
 
@@ -55,11 +55,11 @@ public class Coordinate {
         return column;
     }
 
-    protected void setRow(int row) {
+    public void setRow(int row) {
         this.row = row;
     }
 
-    protected void setColumn(int column) {
+    public void setColumn(int column) {
         this.column = column;
     }
 

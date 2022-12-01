@@ -1,4 +1,4 @@
-package tictactoe;
+package tictactoe.models;
 
 public enum Color {
     X('x'),

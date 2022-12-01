@@ -1,5 +1,8 @@
 package tictactoe;
 
+import tictactoe.controllers.Logic;
+import tictactoe.controllers.OperationController;
+
 class TicTacToe {
 
     private final Logic logic;

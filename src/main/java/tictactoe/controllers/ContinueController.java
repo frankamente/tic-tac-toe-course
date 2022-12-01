@@ -1,4 +1,8 @@
-package tictactoe;
+package tictactoe.controllers;
+
+import tictactoe.utils.YesNoDialog;
+import tictactoe.models.Game;
+import tictactoe.models.State;
 
 public class ContinueController extends OperationController {
     protected ContinueController(Game game) {

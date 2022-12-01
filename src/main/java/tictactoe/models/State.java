@@ -1,4 +1,4 @@
-package tictactoe;
+package tictactoe.models;
 
 public enum State {
     INITIAL,

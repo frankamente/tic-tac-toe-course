@@ -1,4 +1,4 @@
-package tictactoe;
+package tictactoe.utils;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;

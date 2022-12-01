@@ -1,4 +1,8 @@
-package tictactoe;
+package tictactoe.controllers;
+
+import tictactoe.models.Game;
+import tictactoe.models.State;
+import tictactoe.utils.LimitedIntDialog;
 
 public class StartController extends OperationController {
 

@@ -1,4 +1,4 @@
-package tictactoe;
+package tictactoe.models;
 
 public class Game {
 
@@ -29,8 +29,8 @@ public class Game {
         return turn.take();
     }
 
-    public boolean empty(TicTacToeCoordinate ticTacToeCoordinate) {
-        return board.empty(ticTacToeCoordinate);
+    public boolean empty(Coordinate coordinate) {
+        return board.empty(coordinate);
     }
 
     public boolean existTTT() {
@@ -41,8 +41,8 @@ public class Game {
         turn.change();
     }
 
-    public void put(TicTacToeCoordinate ticTacToeCoordinate, Color color) {
-        board.put(ticTacToeCoordinate, color);
+    public void put(Coordinate coordinate, Color color) {
+        board.put(coordinate, color);
     }
 
     public boolean complete() {
@@ -53,11 +53,11 @@ public class Game {
         board.clear();
     }
 
-    public void remove(TicTacToeCoordinate ticTacToeCoordinate, Color color) {
-        board.remove(ticTacToeCoordinate, color);
+    public void remove(Coordinate coordinate, Color color) {
+        board.remove(coordinate, color);
     }
 
-    public boolean full(TicTacToeCoordinate ticTacToeCoordinate, Color color) {
-        return board.full(ticTacToeCoordinate, color);
+    public boolean full(Coordinate coordinate, Color color) {
+        return board.full(coordinate, color);
     }
 }

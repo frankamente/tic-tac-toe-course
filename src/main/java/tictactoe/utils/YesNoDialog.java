@@ -1,4 +1,6 @@
-package tictactoe;
+package tictactoe.utils;
+
+import tictactoe.utils.IO;
 
 public class YesNoDialog {
 

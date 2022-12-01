@@ -1,4 +1,6 @@
-package tictactoe;
+package tictactoe.controllers;
+
+import tictactoe.models.Game;
 
 public abstract class OperationController extends Controller {
     protected OperationController(Game game) {

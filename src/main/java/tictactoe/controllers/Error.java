@@ -1,4 +1,4 @@
-package tictactoe;
+package tictactoe.controllers;
 
 public enum Error {
     NOT_EMPTY("Esa casilla ya está ocupada"),

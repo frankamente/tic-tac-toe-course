@@ -1,10 +1,15 @@
-package tictactoe;
+package tictactoe.controllers;
+
+import tictactoe.models.Coordinate;
+import tictactoe.models.Game;
+import tictactoe.models.State;
+import tictactoe.utils.IO;
 
 public abstract class ColocateController extends OperationController {
 
     private final String actionTitle;
 
-    private TicTacToeCoordinate target;
+    private Coordinate target;
 
     private final CoordinateController coordinateController;
 
@@ -12,7 +17,7 @@ public abstract class ColocateController extends OperationController {
         super(game);
         this.actionTitle = actionTitle;
         this.coordinateController = coordinateController;
-        this.target = new TicTacToeCoordinate();
+        this.target = new Coordinate();
     }
 
     public void control() {
@@ -49,7 +54,7 @@ public abstract class ColocateController extends OperationController {
         return null;
     }
 
-    public TicTacToeCoordinate getTarget() {
+    public Coordinate getTarget() {
         return target;
     }
 
